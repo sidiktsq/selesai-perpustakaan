@@ -1,38 +1,45 @@
 @extends('layouts.dahsboard')
 
 @section('content')
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-start">
-                        {{ __( 'buku' ) }}
-                    </div>
-                    <div class="float-end">
-                        <a href="{{ route('buku.create') }}" class="btn btn-sm btn-outline-primary">Tambah Data</a>
-                    </div>
-                </div>
+    <h4 class="fw-bold py-3 mb-4"><span class="texti-muted fw-lght"> Tabel Buku</span> </h4>
+    <div class="card">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h5 class="card-header">Daftar Buku</h5>
+            <a href="{{ route('buku.create') }}" class="btn btn-primary ">Tambah Data</a>
 
-                <div class="card-body">
-                    <div class="table-responsive text-center">
-                        <table class="table" >
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Kategori</th>
-
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $no = 1; @endphp
-                                @forelse ($buku as $data)
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $data->nama_kategori }}</td>
-                                    <td>
-                                        <form action="{{ route('buku.destroy', $data->id) }}" method="POST">
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                        <th>Kategori</th>
+                        <th>Pengarang</th>
+                        <th>Stok</th>
+                        <th>Tahun</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($bukus as $index => $buku)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td class="fw-semibold">{{ $buku->judul }}</td>
+                            <td>{{ $buku->kategoriBuku->nama_kategori ?? '-' }}</td>
+                            <td>
+                                @if ($buku->pengarangs->isNotEmpty())
+                                    @foreach ($buku->pengarangs as $pengarang)
+                                        {{ $pengarang->nama_pengarang }}<br>
+                                    @endforeach
+                                @else
+                                    <span class="text-muted">Tidak ada</span>
+                                @endif
+                            </td>
+                            <td>{{ $buku->stok }}</td>
+                            <td>{{ $buku->tahun }}</td>
+                            <td>
+                                <form action="{{ route('buku.destroy', $data->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <a href="{{ route('buku.show', $data->id) }}"
@@ -42,22 +49,19 @@
                                             <button type="submit" onsubmit="return confirm('Are You Sure ?');"
                                                 class="btn btn-sm btn-danger">Delete</button>
                                         </form>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">
-                                        Data data belum Tersedia.
-                                    </td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        {!! $buku->withQueryString()->links('pagination::bootstrap-4') !!}
-                    </div>
-                </div>
-            </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-muted text-center py-4">
+                                Tidak ada data buku.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+
+
 @endsection

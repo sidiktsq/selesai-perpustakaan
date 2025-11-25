@@ -2,38 +2,97 @@
 
 @section('content')
 <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-start">
-                        Tambah Buku
-                    </div>
-                    <div class="float-end">
-                        <a href="{{ route('buku.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
-                    </div>
+    <h3 class="mb-4">Tambah Transaksi Baru</h3>
+
+    {{-- Notifikasi Error --}}
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Terjadi kesalahan:</strong>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $err)
+            <li>{{ $err }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <div class="card shadow-sm">
+       <div class="col-md-12">
+                  <div class="card-body">
+            <form action="{{ route('buku.store') }}" method="POST">
+                @csrf
+
+                {{-- Pilih Pelanggan --}}
+                <div class="mb-3">
+                    <label for="kategori_buku_id" class="form-label">Kategori</label>
+                    <select name="kategori_buku_id" class="form-select">
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach ($kategoris as $k)
+                        <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+
+
                 </div>
 
-                <div class="card-body">
-                    <form action="{{ route('buku.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label">Nama Kategori</label>
-                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror"
-                                name="nama_kategori" value="{{ old('nama_kategori') }}" placeholder="nama kategori" required>
-                            @error('nama_kategori')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                <hr>
+
+                <h5>Daftar Buku</h5>
+
+                {{-- Wrapper Produk --}}
+                  <div class="mb-3">
+                      <label for="">Judul Buku</label>
+                      <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror">
+                      @error('judul')
+                      <span class="invalid-feedback" role="alert">
+                          <strong> {{ $message }} </strong>
+                      </span>
+                      @enderror
+                  </div>
+
+
+
+                <div id="produk-wrapper">
+                    <div class="row produk-item mb-3">
+                        <div class="col-md-12">
+                            <label for="pengarang_id" class="form-label">Pengarang</label>
+                            <select name="pengarang_id[]" id="pengarang_id" class="form-select js-multiple form-control" multiple>
+                                <option value="">-- Pilih Pengarang --</option>
+                                @foreach ($pengarangs as $p)
+                                    <option value="{{ $p->id }}">{{ $p->nama_pengarang  }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
-                        <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                        <button type="reset" class="btn btn-sm btn-warning">Reset</button>
 
-                    </form>
+                         <div class="mb-3">
+                             <label for="">Stok</label>
+                             <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror">
+                             @error('stok')
+                             <span class="invalid-feedback" role="alert">
+                                 <strong> {{ $message }} </strong>
+                             </span>
+                             @enderror
+                         </div>
+
+                          <div class="mb-3">
+                              <label for="">Tahun Terbit</label>
+                              <input type="year" name="tahun" class="form-control @error('tahun') is-invalid @enderror">
+                              @error('tahun')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong> {{ $message }} </strong>
+                              </span>
+                              @enderror
+                          </div>
+
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Simpan Transaksi</button>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
     </div>
 </div>
 @endsection

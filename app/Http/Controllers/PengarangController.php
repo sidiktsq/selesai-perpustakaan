@@ -2,64 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pengarang;
+use App\Models\Pengarang;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengarangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pengarangs = Pengarang::all();
+
+          $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        
+        return view('pengarang.index', compact('pengarangs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    //create
     public function create()
     {
-        //
+        return view('pengarang.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    //store
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_pengarang' => 'required|string|max:255',
+        ]);
+
+        $pengarangs = new Pengarang();
+        $pengarangs->nama_pengarang = $request->nama_pengarang;
+        $pengarangs->save();
+
+        
+        return redirect()->route('pengarang.index')->with('success', 'Pengarang berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(pengarang $pengarang)
+
+    public function show(string $id)
     {
-        //
+        $pengarangs = Pengarang::findOrFail($id);
+        return view('.pengarang.show', compact('pengarangs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(pengarang $pengarang)
+    public function edit(string $id)
     {
-        //
+        $pengarangs = Pengarang::findOrFail($id);
+        return view('.pengarang.edit', compact('pengarangs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, pengarang $pengarang)
+    public function update(Request $request, string $id)
     {
-        //
+         $validated = $request->validate([
+            'nama_pengarang' => 'required|string|max:255',
+        ]);
+
+        $pengarangs = new Pengarang();
+        $pengarangs->nama_pengarang = $request->nama_pengarang;
+        $pengarangs->save();
+
+        return redirect()->route('pengarang.index')->with('success', 'Pengarang berhasil ditambahkan.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(pengarang $pengarang)
+    //destroy
+    public function destroy(string $id)
     {
-        //
+        $pengarangs = Pengarang::findOrFail($id);
+        $pengarangs->delete();
+        return redirect()->route('pengarang.index');
     }
 }

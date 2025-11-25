@@ -1,17 +1,14 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class pengarang extends Model
+class Pengarang extends Model
 {
-    protected $table = 'pengarang';
-protected $fillable = ['nama_pengarang'];
+    protected $fillable = ['nama_pengarang'];
 
-
-public function buku()
-{
-return $this->belongsToMany(Buku::class, 'buku_pengarang');
-}
+    public function bukus()
+    {
+        return $this->belongsToMany(Buku::class, 'buku_pengarang', 'pengarang_id', 'buku_id');
+    }
 }
