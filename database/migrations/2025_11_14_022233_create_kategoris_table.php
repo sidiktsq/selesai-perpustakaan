@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('buku_pengarangs', function (Blueprint $table) {
             $table->foreignId('buku_id')->constrained('buku')->onDelete('cascade');
+            $table->unsignedBigInteger('kategori_id');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
             $table->foreignId('pengarang_id')->constrained('pengarang')->onDelete('cascade');
             $table->primary(['buku_id', 'pengarang_id']);
         });

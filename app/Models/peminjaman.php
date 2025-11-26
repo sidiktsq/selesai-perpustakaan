@@ -1,24 +1,19 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class peminjaman extends Model
+class Peminjaman extends Model
 {
     protected $table = 'peminjaman';
-protected $fillable = ['kode_pinjam','nama_peminjam','tanggal_pinjam','tanggal_kembali'];
 
+    protected $guarded  = [];
+    protected $fillable = ['kode_peminjaman', 'nama_peminjam', 'tanggal_peminjaman', 'tanggal_kembali'];
 
-public function detail()
-{
-return $this->hasMany(PeminjamanDetail::class, 'peminjaman_id');
-}
-
-
-public function buku()
-{
-return $this->belongsToMany(Buku::class, 'peminjaman_detail')
-->withPivot(['jumlah']);
-}
+    public function bukus()
+    {
+        return $this->belongsToMany(Buku::class, 'peminjaman_details')
+            ->withPivot(['jumlah'])
+            ->withTimestamps();
+    }
 }

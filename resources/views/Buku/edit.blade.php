@@ -72,7 +72,7 @@ input:focus, select:focus {
     <div class="card">
         <h3>Edit Buku</h3>
 
-        <form action="{{ route('project.buku.update', $buku->id) }}" method="POST">
+        <form action="{{ route('buku.update', $buku->id) }}" method="POST">
             @csrf
             @method('PUT')
 

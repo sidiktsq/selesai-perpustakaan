@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <h4 class="fw-bold">{{ $kategori->judul }}</h4>
+                    <h4 class="fw-bold">{{ $kategori->nama_kategori }}</h4>
                     <p class="mt-2 mb-1">{{ $kategori->stok }}</p>
                     <p class="mt-2">{!! $kategori->tahun !!}</p>
                 </div>

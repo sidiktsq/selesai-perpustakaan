@@ -7,9 +7,9 @@ class Buku extends Model
 {
     protected $fillable = ['judul', 'stok', 'tahun', 'kategori_id'];
 
-    public function kategoriBuku()
+    public function kategori()
     {
-        return $this->belongsTo(KategoriBuku::class, 'kategori_buku_id');
+        return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
     public function pengarangs()

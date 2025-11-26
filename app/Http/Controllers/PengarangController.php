@@ -43,13 +43,13 @@ class PengarangController extends Controller
     public function show(string $id)
     {
         $pengarangs = Pengarang::findOrFail($id);
-        return view('.pengarang.show', compact('pengarangs'));
+        return view('pengarang.show', compact('pengarangs'));
     }
 
     public function edit(string $id)
     {
         $pengarangs = Pengarang::findOrFail($id);
-        return view('.pengarang.edit', compact('pengarangs'));
+        return view('pengarang.edit', compact('pengarangs'));
     }
 
     /**

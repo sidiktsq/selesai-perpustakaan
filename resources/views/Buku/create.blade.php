@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h3 class="mb-4">Tambah Transaksi Baru</h3>
+    <h3 class="mb-4">Tambah Buku Baru</h3>
 
     {{-- Notifikasi Error --}}
     @if ($errors->any())
@@ -24,8 +24,8 @@
 
                 {{-- Pilih Pelanggan --}}
                 <div class="mb-3">
-                    <label for="kategori_buku_id" class="form-label">Kategori</label>
-                    <select name="kategori_buku_id" class="form-select">
+                    <label for="kategori_id" class="form-label">Kategori</label>
+                    <select name="kategori_id" class="form-select">
                         <option value="">-- Pilih Kategori --</option>
                         @foreach ($kategoris as $k)
                         <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>

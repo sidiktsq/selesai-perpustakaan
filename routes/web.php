@@ -17,3 +17,4 @@ Route::get('template', function () {
 Route::resource('buku', App\Http\Controllers\BukuController::class);
 Route::resource('kategori', App\Http\Controllers\KategoriController::class);
 Route::resource('pengarang', App\Http\Controllers\PengarangController::class);
+Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
