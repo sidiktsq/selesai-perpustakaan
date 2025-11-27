@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-start">
-                        {{ __('kategori') }}
+                        Kategori
                     </div>
                     <div class="float-end">
                         <a href="{{ route('kategori.create') }}" class="btn btn-sm btn-outline-primary">Tambah Data</a>

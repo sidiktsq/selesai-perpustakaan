@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-start">
-                        Tambah Produk
+                        Tambah Pengarang
                     </div>
                     <div class="float-end">
                         <a href="{{ route('pengarang.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>

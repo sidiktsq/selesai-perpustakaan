@@ -43,7 +43,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-custom shadow-sm py-3">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Assadig</a>
+                <a class="navbar-brand" href="{{ url('/') }}">someone</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>

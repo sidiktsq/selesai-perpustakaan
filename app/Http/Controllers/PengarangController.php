@@ -11,11 +11,10 @@ class PengarangController extends Controller
     public function index()
     {
         $pengarangs = Pengarang::all();
-
-          $title = 'Delete Data!';
+        $title = 'Delete Data!';
         $text = "Are you sure you want to delete?";
         
-        return view('pengarang.index', compact('pengarangs'));
+        return view('pengarang.index', compact('pengarangs', 'title', 'text'));
     }
 
     //create

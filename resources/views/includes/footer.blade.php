@@ -1,7 +1,7 @@
 <footer class="content-footer footer bg-footer-theme">
   <style>
     footer.content-footer {
-    background: linear-gradient(135deg, #105fd6, #2b89ff)  !important; /* biru bootstrap */
+    background: linear-gradient(135deg, #fffb00, #fbff00)  !important; /* biru bootstrap */
     color: white !important;
 }
 
@@ -17,7 +17,7 @@ footer.content-footer a {
                     document.write(new Date().getFullYear());
                   </script>
                   , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Fahmi</a>
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">sidik</a>
                 </div>
                 <div>
                   <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

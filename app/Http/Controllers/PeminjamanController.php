@@ -34,7 +34,7 @@ class PeminjamanController extends Controller
         $validated = $request->validate([
             'nama_peminjam' => 'required|string|max:255',
             'buku_id'       => 'required|array',
-            'buku_id.*'     => 'exists:bukus,id',
+            'buku_id.*'     => 'exists:buku,id',
             'jumlah'        => 'required|array',
             'jumlah.*'      => 'required|integer|min:1',
         ]);

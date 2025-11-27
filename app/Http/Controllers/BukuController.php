@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\Kategori;
 use App\Models\Pengarang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {
@@ -22,27 +24,46 @@ class BukuController extends Controller
         return view('buku.create', compact('kategoris', 'pengarangs'));
     }
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'judul'        => 'required',
-            'kategori_id'  => 'required|exists:kategoris,id',
-            'pengarang_id' => 'required|array',
-            'stok'         => 'required|integer',
-            'tahun'        => 'required|integer',
-        ]);
+   public function store(Request $request)
+{
+    // Validasi input
+    $validated = $request->validate([
+        'judul'         => 'required|string|max:255',
+        'kategori_id'   => 'required|exists:kategoris,id',
+        'pengarang_id'  => 'required|array',
+        'pengarang_id.*'=> 'exists:pengarangs,id',
+        'stok'          => 'required|integer|min:0',
+        'tahun'         => 'required|integer|min:1900|max:' . (date('Y') + 1),
+    ]);
 
+    try {
+        DB::beginTransaction();
+
+        // Buat data buku dengan nilai default untuk field yang required
         $buku = Buku::create([
-            'judul'       => $request->judul,
-            'kategori_id' => $request->kategori_id,
-            'stok'        => $request->stok,
-            'tahun'       => $request->tahun,
+            'judul'         => $request->judul,
+            'kategori_id'   => $request->kategori_id,
+            'stok'          => $request->stok,
+            'tahun_terbit'  => $request->tahun,
+            'isbn'          => 'TEMP-' . time(), // Nilai sementara untuk ISBN
+            'jumlah_halaman'=> 0, // Nilai default
         ]);
 
-        $buku->pengarangs()->attach($request->pengarang_id);
+        // Hubungkan dengan pengarang
+        $buku->pengarangs()->sync($request->pengarang_id);
 
-        return redirect()->route('buku.index')->with('success', 'Data berhasil ditambahkan.');
+        DB::commit();
+
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku berhasil ditambahkan');
+            
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
+}
 
     public function show($id)
     {

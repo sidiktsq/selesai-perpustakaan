@@ -5,7 +5,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Buku extends Model
 {
-    protected $fillable = ['judul', 'stok', 'tahun', 'kategori_id'];
+    protected $table = 'buku';
+    
+    protected $fillable = [
+        'judul',
+        'stok',
+        'tahun_terbit',
+        'kategori_id',
+        'isbn',
+        'jumlah_halaman',
+        'deskripsi',
+        'gambar'
+    ];
 
     public function kategori()
     {

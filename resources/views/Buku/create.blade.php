@@ -50,7 +50,7 @@
                       @enderror
                   </div>
 
-
+                  
 
                 <div id="produk-wrapper">
                     <div class="row produk-item mb-3">
@@ -76,11 +76,18 @@
                          </div>
 
                           <div class="mb-3">
-                              <label for="">Tahun Terbit</label>
-                              <input type="year" name="tahun" class="form-control @error('tahun') is-invalid @enderror">
+                              <label for="tahun">Tahun Terbit</label>
+                              <input type="number" 
+                                     name="tahun" 
+                                     id="tahun"
+                                     min="1900" 
+                                     max="{{ date('Y') + 1 }}" 
+                                     class="form-control @error('tahun') is-invalid @enderror"
+                                     value="{{ old('tahun') }}"
+                                     required>
                               @error('tahun')
                               <span class="invalid-feedback" role="alert">
-                                  <strong> {{ $message }} </strong>
+                                  <strong>{{ $message }}</strong>
                               </span>
                               @enderror
                           </div>

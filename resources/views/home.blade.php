@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('Selamat Datang di ASSADIG') }}
+                    {{ __('Selamat Datang di mana mana ') }}
                 </div>
             </div>
         </div>

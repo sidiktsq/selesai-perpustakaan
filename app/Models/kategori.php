@@ -5,13 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kategori extends Model
 {
+     // SESUAI DENGAN TABEL YANG AD
+     protected $table = 'kategoris';
     protected $fillable = ['nama_kategori'];
-    protected $visible  = ['nama_kategori'];
+   
 
     public function bukus()
-{
-    return $this->hasMany(Buku::class, 'kategori_id');
-}
+    {
+        return $this->hasMany(Buku::class, 'kategori_id');
+    }
 
 
 }

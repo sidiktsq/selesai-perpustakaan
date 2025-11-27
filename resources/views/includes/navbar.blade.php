@@ -21,7 +21,7 @@
                 .navbar-brand {
                     font-weight: 700;
                     font-size: 1.3rem;
-                    color: #1e40af !important;
+                    color: #4ece4a !important;
                 }
 
                 .nav-link {
@@ -30,7 +30,7 @@
                 }
 
                 .nav-link:hover {
-                    color: #1e40af !important;
+                    color: #56836b !important;
                 }
 
                 /* ====== DROPDOWN STYLE ====== */
@@ -61,7 +61,7 @@
 
                 .card-header {
                     border-radius: 16px 16px 0 0 !important;
-                    background: #1e40af;
+                    background: #23a11e;
                     color: white;
                     font-size: 1.1rem;
                     font-weight: 600;
@@ -76,7 +76,7 @@
                 }
 
                 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-                    background-color: #1e40af;
+                    background-color: #2fa02f;
                     border-radius: 8px;
                     padding: 4px 10px;
                     font-size: 0.85rem;
@@ -85,14 +85,14 @@
 
                 /* ====== BUTTON STYLE ====== */
                 .btn-primary {
-                    background: #1e40af;
+                    background: #33a542;
                     border: none;
                     border-radius: 10px;
                     font-weight: 600;
                 }
 
                 .btn-primary:hover {
-                    background: #1d4ed8;
+                    background: #1ca83f;
                 }
 
           </style>
@@ -154,8 +154,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                            <small class="text-muted">{{ Auth::user()->email }}</small>
+                            <span class="fw-semibold d-block">{{ Auth::check() ? Auth::user()->name : 'Guest' }}</span>
+                            <small class="text-muted">{{ Auth::check() ? Auth::user()->email : 'guest@example.com' }}</small>
                           </div>
                         </div>
                       </a>

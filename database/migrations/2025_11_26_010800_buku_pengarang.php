@@ -13,7 +13,7 @@ public function up()
         $table->unsignedBigInteger('buku_id');
         $table->unsignedBigInteger('pengarang_id');
 
-        $table->foreign('buku_id')->references('id')->on('bukus')->onDelete('cascade');
+        $table->foreign('buku_id')->references('id')->on('buku')->onDelete('cascade');
         $table->foreign('pengarang_id')->references('id')->on('pengarangs')->onDelete('cascade');
     });
 }
