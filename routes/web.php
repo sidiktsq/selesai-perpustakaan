@@ -1,20 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Authentication Routes
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Redirect root to dashboard
+Route::redirect('/', '/dashboards');
 
-Route::get('template', function () {
-    return view('layouts.dahsboard');
+// Dashboard Routes (protected by auth middleware)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('dashboards', DashboardController::class);
+    Route::patch('dashboards/{dashboard}/toggle-status', [DashboardController::class, 'toggleStatus'])
+        ->name('dashboards.toggle-status');
 });
 
-Route::resource('buku', App\Http\Controllers\BukuController::class);
-Route::resource('kategori', App\Http\Controllers\KategoriController::class);
-Route::resource('pengarang', App\Http\Controllers\PengarangController::class);
-Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+// Other resource routes (protected by auth middleware)
+Route::middleware(['auth'])->group(function () {
+    Route::resource('buku', App\Http\Controllers\BukuController::class);
+    Route::resource('kategori', App\Http\Controllers\KategoriController::class);
+    Route::resource('pengarang', App\Http\Controllers\PengarangController::class);
+    Route::resource('peminjaman', App\Http\Controllers\PeminjamanController::class);
+});
+
+// Home route (protected by auth)
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('auth');
